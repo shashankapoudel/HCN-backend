@@ -4,7 +4,7 @@ const { ApiResponse } = require("../utils/ApiResponse");
 const asyncHandler = require("../utils/AsyncHandler");
 
 const addProducts = asyncHandler(async (req, res) => {
-    const { name, category, subcategory, size, stock, material, sound, price, description, overview, weight } = req.body; // 
+    const { name, category, subcategory, size, stock, material, sound, price, description, overview, weight } = req.body; //
     const imageUrls = req.files.map((file) => file.path);
     console.log(imageUrls)
 

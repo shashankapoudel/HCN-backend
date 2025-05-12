@@ -49,7 +49,7 @@ const updateFaq = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { category, question, answer } = req.body;
 
-    const updated = await Faq.findByIdAndUpdate({ id }, { category, question, answer }, { new: true })
+    const updated = await Faq.findByIdAndUpdate(id, { category, question, answer }, { new: true })
 
     if (!updated) {
         throw new ApiError(400, 'Faq not found')
