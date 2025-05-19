@@ -24,6 +24,7 @@ const sendBlog = asyncHandler(async (req, res) => {
 const getBlog = asyncHandler(async (req, res) => {
 
     const blogs = await Blog.find();
+
     if (!blogs) {
         throw new ApiError(400, 'No Blogs found')
     }
@@ -33,7 +34,6 @@ const getBlog = asyncHandler(async (req, res) => {
 const updateBlog = asyncHandler(async (req, res) => {
     const { title, content, existingImages } = req.body;
     const { id } = req.params;
-
     let existing = [];
     if (existingImages) {
         if (Array.isArray(existingImages)) {
@@ -66,5 +66,8 @@ const deleteBlog = asyncHandler(async (req, res) => {
     }
     res.status(200).json(new ApiResponse(201, 'Blog deleted successfully'))
 })
+
+
+
 
 module.exports = { getBlog, sendBlog, updateBlog, deleteBlog }
