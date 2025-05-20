@@ -15,6 +15,7 @@ const sendBlog = asyncHandler(async (req, res) => {
         images: imageUrls,
         content
     })
+
     await blog.save()
 
     res.status(201).json(new ApiResponse(200, 'blog', 'Blog created successfully'))
@@ -56,6 +57,7 @@ const updateBlog = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(201, updated, 'Blog updated successfully'))
 })
 
+
 const deleteBlog = asyncHandler(async (req, res) => {
 
     const { id } = req.params;
@@ -66,8 +68,5 @@ const deleteBlog = asyncHandler(async (req, res) => {
     }
     res.status(200).json(new ApiResponse(201, 'Blog deleted successfully'))
 })
-
-
-
 
 module.exports = { getBlog, sendBlog, updateBlog, deleteBlog }

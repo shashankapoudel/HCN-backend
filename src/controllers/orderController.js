@@ -5,19 +5,12 @@ const asyncHandler = require("../utils/AsyncHandler");
 
 const createOrders = asyncHandler(async (req, res) => {
 
-    const { customerName, address, totalAmount } = req.body;
+    const { order } = req.body;
+    const newOrder = new Order({ order })
 
-    if (!customerName || !address || !totalAmount) {
-        throw new ApiError(400, 'All fields are required')
-    }
+    const savedOrder = await newOrder.save();
 
-    const newOrder = new Order({
-        customerName,
-        address,
-        totalAmount,
-    })
-    await newOrder.save();
-    return res.status(201).json(new ApiResponse(201, newOrder, 'New Order saved successfully'))
+    return res.status(201).json(new ApiResponse(201, savedOrder, 'New Order saved successfully'))
 })
 
 
