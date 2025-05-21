@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const OrderSchema = new mongoose.Schema({
+    orderID: { type: String, unique: true },
     personalInfo: {
         firstName: String,
         lastName: String,
@@ -11,13 +12,13 @@ const OrderSchema = new mongoose.Schema({
     },
     shippingAddress: {
         country: String,
-        postalCode: String,
+        zip: String,
         state: String,
         city: String,
         street: String,
         apartment: String,
+        paymentMethod: String,
     },
-    paymentMethod: String,
     items: [
         {
             name: String,

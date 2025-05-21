@@ -5,7 +5,7 @@ const asyncHandler = require("../utils/AsyncHandler");
 
 const createOrders = asyncHandler(async (req, res) => {
 
-    const { order } = req.body;
+    const { formData } = req.body;
     const newOrder = new Order({ order })
 
     const savedOrder = await newOrder.save();
