@@ -16,6 +16,7 @@ const addProducts = asyncHandler(async (req, res) => {
         name,
         category,
         subcategory,
+        subcategorycategory,
         size,
         material,
         stock,
@@ -34,13 +35,14 @@ const addProducts = asyncHandler(async (req, res) => {
 });
 
 
-
-
 const getProducts = asyncHandler(async (req, res) => {
-    const products = await Product.find()
-    res.status(201).json(new ApiResponse(200, products, 'Products fetched successfully'))
+    const products = await Product.find();
 
-})
+    res.status(200).json(
+        new ApiResponse(200, products, 'Products fetched successfully')
+    );
+});
+
 
 
 const getProductsByCategory = asyncHandler(async (req, res) => {
@@ -56,9 +58,9 @@ const getProductsByCategory = asyncHandler(async (req, res) => {
 const getSingleProduct = asyncHandler(async (req, res) => {
 
     const { id } = req.params;
-    console.log(id)
 
-    const product = await Product.findById({ id })
+
+    const product = await Product.findById(id)
 
 
     if (!product) {

@@ -18,7 +18,8 @@ const ProductSchema = new mongoose.Schema({
     },
 
     subcategorycategory: {
-        type: String
+        type: String,
+        required: true
     },
 
     weight: {
@@ -33,7 +34,7 @@ const ProductSchema = new mongoose.Schema({
     size: {
         type: String,
         required: true,
-        enum: ['small', 'medium', 'large']
+
     },
     material: {
         type: String,
