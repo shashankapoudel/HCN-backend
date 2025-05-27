@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const cartItemSchema = new mongoose.Schema({
+    id: {
+        type: String,
+        required: true,
+    },
     image: {
         type: String,
         // required: true

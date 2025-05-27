@@ -5,13 +5,12 @@ const asyncHandler = require("../utils/AsyncHandler");
 
 const addToCart = asyncHandler(async (req, res) => {
     const { sessionId, cartItems } = req.body;
-    console.log(cartItems)
-
     if (!sessionId || cartItems.length === 0) {
         throw new ApiError(400, 'SessionID or cartItems is required')
     }
 
     const filteredCartItems = cartItems.map((item) => ({
+        id: item._id,
         image: item.image,
         name: item.name,
         price: item.price,
@@ -53,10 +52,11 @@ const getCartItems = asyncHandler(async (req, res) => {
 
 const updateCart = asyncHandler(async (req, res) => {
     const { sessionId, cartItems } = req.body;
-    console.log(cartItems)
 
-    if (!sessionId || cartItems.length === 0) {
-        throw new ApiError(400, 'sessionId and cartItems are required')
+
+
+    if (!sessionId || !Array.isArray(cartItems) || cartItems.length === 0) {
+        throw new ApiError(400, 'sessionId and non-empty cartItems are required');
     }
 
     let cart = await Cart.findOne({ sessionId });
@@ -72,6 +72,22 @@ const updateCart = asyncHandler(async (req, res) => {
 
 })
 
+const deleteCart = asyncHandler(async (req, res) => {
+
+    const { sessionId, productId } = req.body;
+
+    const cart = await Cart.findOne({ sessionId })
+
+    if (!cart) {
+        throw new ApiError(400, 'Cart not found')
+    }
+    cart.cartItems = cart.cartItems.filter(item => item.id != productId)
+
+    await cart.save()
+    res.status(200).json(new ApiResponse(200, cart, 'Cart deleted succesfully'))
+
+})
 
 
-module.exports = { addToCart, getCartItems, updateCart }
+
+module.exports = { addToCart, getCartItems, updateCart, deleteCart }
