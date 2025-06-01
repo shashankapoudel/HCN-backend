@@ -27,7 +27,7 @@ const addToCart = asyncHandler(async (req, res) => {
         cart.cartItems.push(...filteredCartItems)
     }
     await cart.save();
-    console.log(cart);
+
     res.status(201).json(new ApiResponse(200, 'Items added to cart successfully'))
 
 })
