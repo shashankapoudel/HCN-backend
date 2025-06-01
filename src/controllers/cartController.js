@@ -11,7 +11,7 @@ const addToCart = asyncHandler(async (req, res) => {
 
     const filteredCartItems = cartItems.map((item) => ({
         id: item._id,
-        image: item.image,
+        images: item.images,
         name: item.name,
         price: item.price,
         category: item.category,
@@ -52,8 +52,6 @@ const getCartItems = asyncHandler(async (req, res) => {
 
 const updateCart = asyncHandler(async (req, res) => {
     const { sessionId, cartItems } = req.body;
-
-
 
     if (!sessionId || !Array.isArray(cartItems) || cartItems.length === 0) {
         throw new ApiError(400, 'sessionId and non-empty cartItems are required');
