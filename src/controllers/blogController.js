@@ -4,13 +4,14 @@ const { ApiResponse } = require("../utils/ApiResponse");
 const asyncHandler = require("../utils/AsyncHandler");
 
 const sendBlog = asyncHandler(async (req, res) => {
-    const { title, content } = req.body;
+    const { title, content, category } = req.body;
 
     const imageUrls = req.files.map((file) => file.path);
-    if (!title || !content) {
+    if (!title || !content || !category) {
         throw new ApiError(400, 'All fields are required')
     }
     const blog = new Blog({
+        category,
         title,
         images: imageUrls,
         content
@@ -33,7 +34,7 @@ const getBlog = asyncHandler(async (req, res) => {
 })
 
 const updateBlog = asyncHandler(async (req, res) => {
-    const { title, content, existingImages } = req.body;
+    const { title, content, existingImages, category } = req.body;
     const { id } = req.params;
     let existing = [];
     if (existingImages) {
@@ -48,6 +49,7 @@ const updateBlog = asyncHandler(async (req, res) => {
     const updated = await Blog.findByIdAndUpdate(
         id,
         {
+            category,
             title,
             content,
             images: combinedImages,

@@ -41,6 +41,8 @@ const getCartItems = asyncHandler(async (req, res) => {
     }
 
     const cart = await Cart.findOne({ sessionId })
+    console.log(cart)
+    console.log(cart.cartItems)
 
     if (!cart) {
         throw new ApiError(400, 'Cart not found')
